@@ -243,3 +243,7 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+*.suo
+TFlexNF/obj/Debug/TFlexNF.dll
+*.dll
+TFlexNF/obj/Debug/TFlexNF.pdb
