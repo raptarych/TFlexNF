@@ -1,14 +1,6 @@
-using System;
-using System.Windows.Forms;
-using System.IO;
-using System.Xml.Serialization;
-using System.Reflection;
-
 using TFlex;
 using TFlex.Model;
-using TFlex.Model.Model2D;
 using TFlex.Command;
-using TFlex.Drawing;
 
 //Данный файл реализует функциональность приложения.
 //Регистрируются команды приложения, иконки команд, пункты меню, панель с кнопками,
