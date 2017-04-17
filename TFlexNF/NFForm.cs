@@ -32,10 +32,8 @@ namespace TFlexNF
         public void initList()
         {
             listView1.Items.Clear();
-            for (int i = 0; i < task.Count(); i++)
+            foreach (var item in task.Items)
             {
-                NFItem item = task.GetItem(i);
-
                 ListViewItem l_item = new ListViewItem();
                 l_item.Text = item.Name;
                 l_item.ImageIndex = 0;
@@ -83,7 +81,7 @@ namespace TFlexNF
 
                 string areaName = listView1.SelectedItems[0].Text;
                 SelectedIndex = listView1.SelectedItems[0].Index;
-                SelectedItem = task.GetItem(SelectedIndex);
+                SelectedItem = task.Items[SelectedIndex];
 
                 //Отрисовка превьюшки детали
                 Document Doc = TFlex.Application.ActiveDocument;
@@ -124,7 +122,7 @@ namespace TFlexNF
                                 int xc1 = (int)((cgeom.CenterX - bound.Left) * Scale);
                                 int yc1 = (int)((bound.Top - cgeom.CenterY) * Scale);
                                 radius = (cgeom.Radius * Scale);
-                                double[] angles = NFGetGeom.GetArcAngle(cgeom, segm.IsCounterclockwise);
+                                double[] angles = NFUtils.GetArcAngle(cgeom);
                                 double ang = angles[0] * 180 / Math.PI;
                                 double ang1 = angles[1] * 180 / Math.PI - 90;
                                 graph.DrawArc(pen, (float)(xc1 - radius), (float)(yc1 - radius), (float)(radius * 2), (float)(radius * 2), (float)ang1, (float)ang);

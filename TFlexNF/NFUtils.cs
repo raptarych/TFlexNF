@@ -7,19 +7,16 @@ using TFlex.Drawing;
 
 namespace TFlexNF
 {
-    class NFGetGeom
+    class NFUtils
     {
         
         public static Document Doc;
         public static void Msg(string M)
         {
             if (Doc != null)
-            {
                 Doc.Diagnostics.Add(new DiagnosticsMessage(DiagnosticsMessageType.Information, M));
-            }
         }
 
-        //protected static void cArcToDoubles(CircleArcGeometry cgeom, ref Stack<double> VertStack)
         protected static void cArcToDoubles(CircleArcGeometry cgeom, ref NFContour cont,Rectangle b,bool ccw)
         {
             double sx = cgeom.StartX;
@@ -28,7 +25,7 @@ namespace TFlexNF
             double ex = cgeom.EndX;
             double ey = cgeom.EndY;
 
-            double[] angs = GetArcAngle(cgeom, ccw);
+            double[] angs = GetArcAngle(cgeom);
             double bulge = Math.Tan(angs[0] / 4);
 
             if (ccw)
@@ -45,7 +42,7 @@ namespace TFlexNF
 
         }
 
-        public static double[] GetArcAngle(CircleArcGeometry arc, bool ccw)
+        public static double[] GetArcAngle(CircleArcGeometry arc)
         {
             double xb = 0, yb = 0, xm = 0, ym = 0, xe = 0, ye = 0;
             arc.GetThreePoints(ref xe, ref ye, ref xm, ref ym, ref xb, ref yb);
@@ -72,16 +69,14 @@ namespace TFlexNF
         {
             Msg("[Nesting Factory] Starting collect geometry...");
 
-            ICollection<Area> EO = Doc.GetAreas();
-            IEnumerator<Area> GeomEnum = EO.GetEnumerator();
-            GeomEnum.MoveNext();
+            ICollection<Area> Areas = Doc.GetAreas();
 
             NFTask task = new NFTask();
 
-            foreach (var area in EO) {
+            foreach (var area in Areas) {
                 Rectangle BoundBox = area.BoundRect;
-                double bound_x = BoundBox.Left;
-                double bound_y = BoundBox.Top;
+                double boundX = BoundBox.Left;
+                double boundY = BoundBox.Top;
 
 
                 NFItem item = new NFItem(area.ObjectId.ToString());
@@ -97,8 +92,8 @@ namespace TFlexNF
                         {
                             case ObjectGeometryType.Line:
                                 LineGeometry linegeom = csegment.Geometry as LineGeometry;
-                                cont.AddPoint(new NFPoint(linegeom.X1 - bound_x, bound_y - linegeom.Y1, 0));
-                                cont.AddPoint(new NFPoint(linegeom.X2 - bound_x, bound_y - linegeom.Y2, 0));
+                                cont.AddPoint(new NFPoint(linegeom.X1 - boundX, boundY - linegeom.Y1, 0));
+                                cont.AddPoint(new NFPoint(linegeom.X2 - boundX, boundY - linegeom.Y2, 0));
                                 break;
                             case ObjectGeometryType.CircleArc:
                                 CircleArcGeometry cgeom = csegment.Geometry as CircleArcGeometry;
@@ -106,8 +101,8 @@ namespace TFlexNF
                                 break;
                             case ObjectGeometryType.Circle:
                                 CircleGeometry cirgeom = csegment.Geometry as CircleGeometry;
-                                cont.AddPoint(new NFPoint(cirgeom.CenterX + cirgeom.Radius - bound_x, bound_y - cirgeom.CenterY, 1));
-                                cont.AddPoint(new NFPoint(cirgeom.CenterX - cirgeom.Radius - bound_x, bound_y - cirgeom.CenterY, 1));
+                                cont.AddPoint(new NFPoint(cirgeom.CenterX + cirgeom.Radius - boundX, boundY - cirgeom.CenterY, 1));
+                                cont.AddPoint(new NFPoint(cirgeom.CenterX - cirgeom.Radius - boundX, boundY - cirgeom.CenterY, 1));
                                 break;
                             default:
                                 PolylineGeometry polygeom = csegment.Geometry as PolylineGeometry;
@@ -116,7 +111,7 @@ namespace TFlexNF
                                 {
                                     if (v_count < 50 || i % (csegment.GeometryType == ObjectGeometryType.Ellipse ? 5 : 1) == 0 || i == v_count)
                                     {
-                                        cont.AddPoint(new NFPoint(polygeom.GetX(i) - bound_x, bound_y - polygeom.GetY(i), 0));
+                                        cont.AddPoint(new NFPoint(polygeom.GetX(i) - boundX, boundY - polygeom.GetY(i), 0));
                                     }
                                 }
                                 break;

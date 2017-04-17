@@ -73,7 +73,7 @@ namespace TFlexNF
 		/// <param name="args"></param>
 		protected override void ObjectDeletedEventHandler(ObjectEventArgs args)
         {
-            if (PluginObjectChanged != null) { PluginObjectChanged(args); }
+            PluginObjectChanged?.Invoke(args);
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace TFlexNF
         /// <param name="args"></param>
         protected override void ObjectChangedEventHandler(ObjectEventArgs args)
         {
-            if (PluginObjectChanged != null) { PluginObjectChanged(args); }
+            PluginObjectChanged?.Invoke(args);
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace TFlexNF
 		/// <param name="args"></param>
         protected override void ObjectCreatedEventHandler(ObjectEventArgs args)
         {
-            if (PluginObjectChanged != null) { PluginObjectChanged(args); }
+            PluginObjectChanged?.Invoke(args);
         }
 
         /// <summary>
@@ -161,12 +161,12 @@ namespace TFlexNF
                 case Commands.Create:
                     break;
                 case Commands.Start://Команда создания объекта
-                    NFGetGeom.Doc = document;
+                    NFUtils.Doc = document;
                     
-                    NFTask task = NFGetGeom.GetGeometry();
-                    NFForm Wndw = new NFForm(task);//Form1(task);
-                    Wndw.Activate();
-                    Wndw.Show();
+                    NFTask task = NFUtils.GetGeometry();
+                    NFForm wndw = new NFForm(task);//Form1(task);
+                    wndw.Activate();
+                    wndw.Show();
                     break;
                 case Commands.Out:
                     NFResults.Start();

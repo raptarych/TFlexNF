@@ -113,12 +113,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="NFForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,7 +120,7 @@
       <DependentUpon>NFForm.cs</DependentUpon>
     </Compile>
     <Compile Include="NFClasses.cs" />
-    <Compile Include="NFGetGeom.cs" />
+    <Compile Include="NFUtils.cs" />
     <Compile Include="PluginInstance.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -168,9 +162,6 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="NFForm.resx">
       <DependentUpon>NFForm.cs</DependentUpon>
     </EmbeddedResource>

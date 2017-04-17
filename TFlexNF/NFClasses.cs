@@ -71,33 +71,16 @@ namespace TFlexNF
         public int ListX;
         public int ListY;
 
-        public void AddItem(NFItem item)
-        {
-            Items.Add(item);
-        }
+        public void AddItem(NFItem item) => Items.Add(item);
 
-        public NFItem GetItem(int id)
-        {
-            return Items[id];
-        }
-
-        public void SetItem(int id, NFItem item)
-        {
-            Items[id] = item;
-        }
+        public void SetItem(int id, NFItem item) => Items[id] = item;
 
         public void RemoveItem(int id)
         {
             for (int i = 0; i < Items.Count-id-1; i++)
-            {
                 Items[id + i] = Items[id + i + 1];
-            }
+            
             Items.RemoveAt(Items.Count - 1);
-        }
-
-        public int Count()
-        {
-            return Items.Count;
         }
 
         public void SaveToItems(string filePath, bool toCatAgent)
@@ -144,7 +127,7 @@ namespace TFlexNF
 
                 taskfile += $"ITEMFILE:\t{itemId}.item\n";
                 taskfile += $"ITEMQUANT:\t{count}\n";
-                taskfile += $"ROTATE:\t{((int) rot > 1 ? 1 : (int) rot)}\n";
+                taskfile += $"ROTATE:\t{(rot == NFRotation.None ? 0 : 1)}\n";
                 taskfile += $"ROTSTEP:\t{rotstep}\n";
                 taskfile += $"REFLECT:\t{refl}\n";
 
@@ -176,7 +159,7 @@ namespace TFlexNF
                 DomainData += $"VERTEX:\t{ListX}\t{ListY}\t0\n";
                 DomainData += $"VERTEX:\t0\t{ListY}\t0\n";
 
-                using (StreamWriter sw = File.CreateText($"{filePath}{Count()}.item"))
+                using (StreamWriter sw = File.CreateText($"{filePath}{Items.Count}.item"))
                 {
                     DomainData = DomainData.Replace(",", ".");
                     sw.WriteLine(DomainData);

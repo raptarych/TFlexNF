@@ -80,7 +80,7 @@ namespace TFlexNF
         {
             int i = 0;
             Document Doc = TFlex.Application.ActiveDocument;
-            NFGetGeom.Doc = Doc;
+            NFUtils.Doc = Doc;
 
             Page p = new Page(Doc);
             p.Name = "NFResult";
@@ -104,7 +104,7 @@ namespace TFlexNF
                 {
                     processing = true;
                     contour_count++;
-                    NFGetGeom.Msg("Contour: " + contour_count);
+                    NFUtils.Msg("Contour: " + contour_count);
 
                     do
                     {
@@ -117,7 +117,7 @@ namespace TFlexNF
                             {
                                 int bulge;
                                 int.TryParse(split[2], out bulge);
-                                NFGetGeom.Msg(line);
+                                NFUtils.Msg(line);
 
                                 double x, y;
                                 double.TryParse(split[0].Replace('.', ','), out x);
@@ -143,7 +143,7 @@ namespace TFlexNF
                             if (split.Count == 5)
                             {
 
-                                NFGetGeom.Msg($"ARC: {line}");
+                                NFUtils.Msg($"ARC: {line}");
                                 double x, y, radius, ang1, ang2;
                                 double.TryParse(split[0].Replace('.', ','), out x);
                                 double.TryParse(split[1].Replace('.', ','), out y);
@@ -193,7 +193,7 @@ namespace TFlexNF
 
                 if (processing & Poly.count > 0)
                 {
-                    NFGetGeom.Msg("INIT POLYLINE");
+                    NFUtils.Msg("INIT POLYLINE");
                     Poly.AddPoint(firstX, firstY);
                     Poly.Draw(Doc, p);
                     Poly = new NFPolyline();
