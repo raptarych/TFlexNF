@@ -25,8 +25,8 @@ namespace TFlexNF
             double ex = cgeom.EndX;
             double ey = cgeom.EndY;
 
-            double[] angs = GetArcAngle(cgeom);
-            double bulge = Math.Tan(angs[0] / 4);
+            var angs = GetArcAngle(cgeom);
+            double bulge = Math.Tan(angs.Item1 / 4);
 
             if (ccw)
             {
@@ -42,7 +42,7 @@ namespace TFlexNF
 
         }
 
-        public static double[] GetArcAngle(CircleArcGeometry arc)
+        public static Tuple<double, double> GetArcAngle(CircleArcGeometry arc)
         {
             double xb = 0, yb = 0, xm = 0, ym = 0, xe = 0, ye = 0;
             arc.GetThreePoints(ref xe, ref ye, ref xm, ref ym, ref xb, ref yb);
@@ -61,8 +61,7 @@ namespace TFlexNF
             {
                 sweep = 2*Math.PI + sweep;
             }
-
-            return new [] { sweep, ang1 };
+            return new Tuple<double, double>(sweep, ang1);
         }
 
         public static NFTask GetGeometry()

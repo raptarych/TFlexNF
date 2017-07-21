@@ -12,7 +12,6 @@ namespace TFlexNF
     class NFPolyline
     {
         public int count => points.Count;
-        protected int length = 0;
         private List<Point> points = new List<Point>();
 
         public void AddPoint(double x, double y) => points.Add(new Point(x, y));
@@ -73,8 +72,8 @@ namespace TFlexNF
                 line = filestream.ReadLine();
                 var split = line.Split(' ').ToList();
                 bool processing = false;
-                double firstX = -1.337;
-                double firstY = -1.337;
+                double? firstX = null;
+                double? firstY = null;
 
                 if (line != null && split.Count == 2)
                 {
@@ -108,7 +107,7 @@ namespace TFlexNF
                                     y = y_offset - y;
                                 }
 
-                                if (firstX == -1.337)
+                                if (firstX == null)
                                 {
                                     firstX = x;
                                     firstY = y;
@@ -145,7 +144,7 @@ namespace TFlexNF
                                 FreeNode fn2 = new FreeNode(Doc, x2, y2);
                                 FreeNode fn3 = new FreeNode(Doc, x3, y3);
 
-                                if (firstX == -1.337)
+                                if (firstX == null)
                                 {
                                     firstX = x1;
                                     firstY = y1;
@@ -170,7 +169,7 @@ namespace TFlexNF
                 if (processing & Poly.count > 0)
                 {
                     NFUtils.Msg("INIT POLYLINE");
-                    Poly.AddPoint(firstX, firstY);
+                    Poly.AddPoint(firstX ?? 0, firstY ?? 0);
                     Poly.Draw(Doc, p);
                     Poly = new NFPolyline();
                 }

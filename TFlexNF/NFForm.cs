@@ -21,9 +21,6 @@ namespace TFlexNF
         private NFItem SelectedItem;
         private int SelectedIndex;
 
-        bool DefaultReflection = false;
-        int DefaultRotation = 0;
-
         public void selectComboNum(ref ComboBox cmb, int id)
         {
             cmb.Text = cmb.Items[id].ToString();
@@ -122,9 +119,9 @@ namespace TFlexNF
                                 int xc1 = (int)((cgeom.CenterX - bound.Left) * Scale);
                                 int yc1 = (int)((bound.Top - cgeom.CenterY) * Scale);
                                 radius = (cgeom.Radius * Scale);
-                                double[] angles = NFUtils.GetArcAngle(cgeom);
-                                double ang = angles[0] * 180 / Math.PI;
-                                double ang1 = angles[1] * 180 / Math.PI - 90;
+                                var angles = NFUtils.GetArcAngle(cgeom);
+                                double ang = angles.Item1 * 180 / Math.PI;
+                                double ang1 = angles.Item2 * 180 / Math.PI - 90;
                                 graph.DrawArc(pen, (float)(xc1 - radius), (float)(yc1 - radius), (float)(radius * 2), (float)(radius * 2), (float)ang1, (float)ang);
                                 break;
                             default:
