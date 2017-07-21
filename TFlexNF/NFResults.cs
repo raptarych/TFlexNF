@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using TFlex.Drawing;
 using TFlex.Model;
 using TFlex.Model.Model2D;
 
@@ -10,37 +11,13 @@ namespace TFlexNF
 {
     class NFPolyline
     {
-        public int count => xr.Count;
+        public int count => points.Count;
         protected int length = 0;
-        public List<double> xr = new List<double>();
-        public List<double> yr = new List<double>();
+        private List<Point> points = new List<Point>();
 
-        public void AddPoint(double x, double y)
-        {
-            xr.Add(x);
-            yr.Add(y);
-        }
+        public void AddPoint(double x, double y) => points.Add(new Point(x, y));
 
-        public void Draw(Document Doc, Page p)
-        {
-            PolylineGeometry cpoly;
-
-            unsafe
-            {
-                var count = Math.Min(xr.Count, yr.Count);
-                double* xs = stackalloc double[count + 1];
-                double* ys = stackalloc double[count + 1];
-
-                for (int i = 0; i < count; i++)
-                {
-                    xs[i] = xr[i];
-                    ys[i] = yr[i];
-                }
-
-                cpoly = new PolylineGeometry(count, xs, ys);
-                PolylineOutline nes = new PolylineOutline(Doc, cpoly) {Page = p};
-            }
-        }
+        public void Draw(Document Doc, Page p) => new PolylineOutline(Doc, new PolylineGeometry(points)) { Page = p };
     }
 
     class NFResults
@@ -78,7 +55,6 @@ namespace TFlexNF
 
         protected static void Process(StreamReader filestream)
         {
-            int i = 0;
             Document Doc = TFlex.Application.ActiveDocument;
             NFUtils.Doc = Doc;
 

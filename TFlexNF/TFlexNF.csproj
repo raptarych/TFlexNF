@@ -47,8 +47,8 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <OutputPath>C:\Program Files\T-FLEX CAD Учебная Версия 15 x64\Program\</OutputPath>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <OutputPath>..\..\..\Soft\T-FLEX CAD 15 x64\Program\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
     <ConfigurationOverrideFile>
@@ -106,10 +106,8 @@
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="TFlexAPI, Version=15.0.10.0, Culture=neutral, PublicKeyToken=eab6a180a6be0d77, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\T-FLEX CAD Учебная Версия 15 x64\Program\TFlexAPI.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="TFlexAPI">
+      <HintPath>..\..\..\Soft\T-FLEX CAD 15 x64\Program\TFlexAPI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

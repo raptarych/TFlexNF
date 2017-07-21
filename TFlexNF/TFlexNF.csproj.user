@@ -2,6 +2,6 @@
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <StartAction>Program</StartAction>
-    <StartProgram>C:\Program Files\T-FLEX CAD Учебная Версия 15 x64\Program\TFlex.exe</StartProgram>
+    <StartProgram>D:\Soft\T-FLEX CAD 15 x64\Program\TFlexCad.exe</StartProgram>
   </PropertyGroup>
 </Project>
